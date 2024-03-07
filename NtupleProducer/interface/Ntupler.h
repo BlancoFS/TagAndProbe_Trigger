@@ -7,7 +7,7 @@
 
 // user include files
 #include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/EDAnalyzer.h"
+#include "FWCore/Framework/interface/one/EDAnalyzer.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
@@ -18,8 +18,9 @@
 #include "DataFormats/PatCandidates/interface/Electron.h"
 #include "DataFormats/EgammaCandidates/interface/ConversionFwd.h"
 #include "DataFormats/EgammaCandidates/interface/Conversion.h"
-#include "RecoEgamma/EgammaTools/interface/ConversionTools.h"
-#include "RecoEgamma/EgammaTools/interface/EffectiveAreas.h"
+
+#include "CommonTools/Egamma/interface/ConversionTools.h"
+#include "CommonTools/Egamma/interface/EffectiveAreas.h"
 
 //Vertex related header files
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
@@ -71,7 +72,7 @@
 // class declaration
 //
 
-class Ntupler : public edm::EDAnalyzer {
+class Ntupler : public edm::one::EDAnalyzer<edm::one::SharedResources> {
    public:
       explicit Ntupler(const edm::ParameterSet&);
       ~Ntupler();
@@ -141,6 +142,9 @@ class Ntupler : public edm::EDAnalyzer {
      edm::EDGetTokenT<edm::ValueMap<bool> > eleIdMapMVAnoIsoWP80Token_;
      edm::EDGetTokenT<edm::ValueMap<bool> > eleIdMapMVAIsoWP90Token_;
      edm::EDGetTokenT<edm::ValueMap<bool> > eleIdMapMVAIsoWP80Token_;
+
+     edm::EDGetTokenT<edm::ValueMap<bool> > eleIdMapTight22Token_;
+     edm::EDGetTokenT<edm::ValueMap<bool> > eleIdMapMVA9022IsoToken_;
 
      edm::EDGetTokenT<edm::ValueMap<bool> > eleIdMapLoosev1Token_;
      edm::EDGetTokenT<edm::ValueMap<bool> > eleIdMapMediumv1Token_;
@@ -213,6 +217,9 @@ class Ntupler : public edm::EDAnalyzer {
      std::vector<bool> passMVAnoIsoWP80v1_;
      std::vector<bool> passMVAIsoWP90v1_;
      std::vector<bool> passMVAIsoWP80v1_;
+
+     std::vector<bool> passEleIdTight22V1_;
+     std::vector<bool> passEleIdMVA90Iso22V1_;
 /*
        std::vector<bool> passMVAIsoWPLoose_;
             std::vector<float> valueMVAnoIso_;

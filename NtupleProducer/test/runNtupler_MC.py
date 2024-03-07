@@ -22,8 +22,10 @@ process.MessageLogger.cerr.FwkReport.reportEvery = 1
 from Configuration.AlCa.GlobalTag import GlobalTag
 #process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc','') 
 
-process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run3_data_prompt','')
+#process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run3_data_prompt','')
 #process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run3_data','')
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase1_2022_realistic','')
+
 #
 # Define input data to read
 #
@@ -44,10 +46,10 @@ inputFilesAOD = cms.untracked.vstring(
 
 inputFilesMiniAOD = cms.untracked.vstring(
 #'root://cms-xrd-global.cern.ch//store/data/Run2018A/EGamma/MINIAOD/12Nov2019_UL2018-v2/270000/D9CE2EBF-5031-314C-97CC-F502CF7765E8.root'
-#'root://cms-xrd-global.cern.ch//store/mc/Run3Summer22EEMiniAODv3/DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/124X_mcRun3_2022_realistic_postEE_v1-v4/2810000/00ba5d9d-94d9-4f70-b639-cee86a22bd65.root'
+'root://cms-xrd-global.cern.ch//store/mc/Run3Summer22EEMiniAODv3/DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/124X_mcRun3_2022_realistic_postEE_v1-v4/2810000/00ba5d9d-94d9-4f70-b639-cee86a22bd65.root'
 #'root://cms-xrd-global.cern.ch//store/data/Run2022F/EGamma/MINIAOD/PromptReco-v1/000/360/390/00000/36a01d2b-7976-4e95-b8cb-4cc129240e7f.root'
 #'root://cms-xrd-global.cern.ch//store/data/Run2022F/Muon/MINIAOD/PromptReco-v1/000/360/390/00000/54e34e5f-9076-41d2-ba22-a3021168e6f8.root'
-'root://cms-xrd-global.cern.ch//store/data/Run2022D/Muon/MINIAOD/22Sep2023-v1/2520000/034c07a7-dd75-42ec-8bc9-278cd25136f1.root'
+#'root://cms-xrd-global.cern.ch//store/data/Run2022D/Muon/MINIAOD/22Sep2023-v1/2520000/034c07a7-dd75-42ec-8bc9-278cd25136f1.root'
 #'root://cms-xrd-global.cern.ch//store/mc/Run3Summer22EEMiniAODv3/DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/124X_mcRun3_2022_realistic_postEE_v1-v4/2810000/00ba5d9d-94d9-4f70-b639-cee86a22bd65.root'
 )
 #
@@ -229,7 +231,7 @@ process.ntupler = cms.EDAnalyzer('Ntupler',
 				  eleMVAValuesMapTokenNoIso = cms.InputTag('electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values'),	
                                   muInputTag = cms.InputTag("gmtStage2Digis","Muon","RECO"),
                                   egInputTag = cms.InputTag("caloStage2Digis","EGamma","RECO"),
-                                 isMC = cms.bool(False),
+                                 isMC = cms.bool(True),
                                  doMuon = cms.bool(True),
                                  doEle = cms.bool(True)
                                  )
