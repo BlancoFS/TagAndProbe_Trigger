@@ -22,10 +22,8 @@ process.MessageLogger.cerr.FwkReport.reportEvery = 1
 from Configuration.AlCa.GlobalTag import GlobalTag
 #process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc','') 
 
-#process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase1_2022_realistic_postEE','')
-process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run3_data','')
-#process.GlobalTag = "124X_dataRun3_v15"
-
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run3_data_prompt','')
+#process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run3_data','')
 #
 # Define input data to read
 #
@@ -42,12 +40,17 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 #
 inputFilesAOD = cms.untracked.vstring(
 'root://cms-xrd-global.cern.ch//store/data/Run2017C/SingleElectron/AOD/12Sep2017-v1/70000/80EF56E5-69A6-E711-AB37-48FD8E2824D7.root',
-    )    
+)    
 
 inputFilesMiniAOD = cms.untracked.vstring(
 #'root://cms-xrd-global.cern.ch//store/data/Run2018A/EGamma/MINIAOD/12Nov2019_UL2018-v2/270000/D9CE2EBF-5031-314C-97CC-F502CF7765E8.root'
 #'root://cms-xrd-global.cern.ch//store/mc/Run3Summer22EEMiniAODv3/DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/124X_mcRun3_2022_realistic_postEE_v1-v4/2810000/00ba5d9d-94d9-4f70-b639-cee86a22bd65.root'
-'root://cms-xrd-global.cern.ch//store/data/Run2022F/EGamma/MINIAOD/PromptReco-v1/000/360/389/00000/02d37797-3eda-47c4-bba9-1f28b1402dd7.root'
+#'root://cms-xrd-global.cern.ch//store/data/Run2022F/EGamma/MINIAOD/PromptReco-v1/000/360/390/00000/36a01d2b-7976-4e95-b8cb-4cc129240e7f.root'
+#'root://cms-xrd-global.cern.ch//store/data/Run2022F/Muon/MINIAOD/PromptReco-v1/000/360/390/00000/54e34e5f-9076-41d2-ba22-a3021168e6f8.root'
+#'root://cms-xrd-global.cern.ch//store/data/Run2022D/Muon/MINIAOD/22Sep2023-v1/2520000/034c07a7-dd75-42ec-8bc9-278cd25136f1.root'
+#"root://cms-xrd-global.cern.ch//store/data/Run2023C/Muon0/MINIAOD/22Sep2023_v2-v1/30000/9ac60f62-20dd-4708-87e5-c3fa254bdffa.root" #2023
+"root://cms-xrd-global.cern.ch//store/data/Run2023C/EGamma0/MINIAOD/22Sep2023_v1-v1/2530000/13beab35-6030-43c8-a2bc-516d3603c8c7.root"
+#'root://cms-xrd-global.cern.ch//store/mc/Run3Summer22EEMiniAODv3/DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/124X_mcRun3_2022_realistic_postEE_v1-v4/2810000/00ba5d9d-94d9-4f70-b639-cee86a22bd65.root'
 )
 #
 # You can list here either AOD or miniAOD files, but not both types mixed
@@ -83,6 +86,7 @@ my_id_modules = [
     'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff',
     'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V2_cff',
     'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Winter22_122X_V1_cff',
+    'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_RunIIIWinter22_iso_V1_cff',
     'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_noIso_V1_cff',
     'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_iso_V1_cff',
     'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_noIso_V2_cff',
@@ -100,21 +104,21 @@ process.minPtLeptonEle = cms.EDFilter("PtMinCandViewSelector",
                                        ptMin = cms.double(9)
 )
 
-#process.minPtLeptonMu = cms.EDFilter("PtMinCandViewSelector",
-#                                      src = cms.InputTag("slimmedMuons"),
-#                                      ptMin = cms.double(9)
-#)
+process.minPtLeptonMu = cms.EDFilter("PtMinCandViewSelector",
+                                      src = cms.InputTag("slimmedMuons"),
+                                      ptMin = cms.double(9)
+)
 
-#process.minPtLeptons = cms.EDFilter("PtMinCandViewSelector",
-#    src = cms.InputTag("slimmedMuons"),
-##    src = cms.InputTag("slimmedElectrons"),
-#    ptMin = cms.double(9)
-#  )
+process.minPtLeptons = cms.EDFilter("PtMinCandViewSelector",
+    src = cms.InputTag("slimmedMuons"),
+#    src = cms.InputTag("slimmedElectrons"),
+    ptMin = cms.double(9)
+  )
 
-#process.atLeastTwoLeptons = cms.EDFilter("CandViewCountFilter",
-#                                       src = cms.InputTag("minPtLeptons"),
-#                                       minNumber = cms.uint32(2)
-#                                       )
+process.atLeastTwoLeptons = cms.EDFilter("CandViewCountFilter",
+                                       src = cms.InputTag("minPtLeptons"),
+                                       minNumber = cms.uint32(2)
+                                       )
 
 #
 # Configure the ntupler module
@@ -141,39 +145,60 @@ process.ntupler = cms.EDAnalyzer('Ntupler',
                                  l1EGTag      = cms.InputTag("caloStage2Digis","EGamma","RECO"),
                                  l1MuonTag    = cms.InputTag("gmtStage2Digis","Muon","RECO"),
 
-				 pathsToSave  = cms.vstring( "HLT_Ele32_WPTight_Gsf_v",
+                                 pathsToSave  = cms.vstring( "HLT_Ele30_WPTight_Gsf_v",
+                                                             "HLT_Ele32_WPTight_Gsf_v",
                                                              "HLT_Ele35_WPTight_Gsf_v",
                                                              "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v",
                                                              "HLT_IsoMu24_v",
-							     "HLT_IsoMu27_v",
+                                                             "HLT_IsoMu27_v",
                                                              "HLT_Mu50_v",
                                                              "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_v",
                                                              "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_v",
-                                                             "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
+                                                             "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
                                                              "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v",
-								),
-                                 filterToMatch= cms.vstring(
-                                                          "hltEle32WPTightGsfTrackIsoFilter",
-                                  			  "hltEle35noerWPTightGsfTrackIsoFilter",
-				  			  "hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg1Filter",
-				  			  "hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg2Filter",
-                                                          "hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p07",
-				 			  "hltL3crIsoL1sMu22Or25L1f0L2f10QL3f27QL3trkIsoFiltered0p07",
-                                                          "hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q",
-							  "hltL3fL1DoubleMu155fFiltered17",
-							  "hltL3fL1DoubleMu155fPreFiltered8",
-							  "hltDiMuon178RelTrkIsoFiltered0p4",
-                                                         # "hltDiMuon178RelTrkIsoFiltered0p4DzFiltered0p2",
-                                                        #  "hltDiMuon178Mass3p8Filtered",
-                                                        #  "hltDiMuon178Mass8Filtered",
-							  "hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered12",
-							  "hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
-                                                        #  "hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
-							  "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered23",
-							  "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter"
-										),
-				HLTprocess = cms.string("HLT"),
+                                 ),
 
+                                 filterToMatch= cms.vstring(
+                                     # Ele
+                                     "hltEle30WPTightGsfTrackIsoFilter",
+                                     "hltEle32WPTightGsfTrackIsoFilter",
+                                     "hltEle35noerWPTightGsfTrackIsoFilter",
+                                     "hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg1Filter",
+                                     "hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg2Filter" ,
+                                     "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
+                                     "hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
+                                     # Muon
+                                     "hltL3fL1sSingleMu22L1f0L2f10QL3Filtered24Q",
+                                     "hltL3fL1sMu22Or25L1f0L2f10QL3Filtered27Q",
+                                     "hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q",
+                                     "hltL3fL1DoubleMu155fFiltered17",
+                                     "hltL3fL1DoubleMu155fPreFiltered8",
+                                     "hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL1Filtered0",
+                                     "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL1Filtered0",
+                                     ######
+                                     #"hltEle32WPTightGsfTrackIsoFilter",
+                                     #"hltEle35noerWPTightGsfTrackIsoFilter",
+                                     #"hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg1Filter",
+                                     #"hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg2Filter",
+                                     #"hltEle115CaloIdVTGsfTrkIdTGsfDphiFilter",
+                                     #"hltEle50CaloIdVTGsfTrkIdTGsfDphiFilter",
+                                     #"hltDiEle25CaloIdLMWPMS2UnseededFilter",
+                                     #"hltDiEle27L1DoubleEGWPTightHcalIsoFilter",
+                                     ## test
+                                     #"hltL3fL1sSingleMu22L1f0L2f10QL3Filtered24Q",
+                                     #"hltL3fL1sMu22Or25L1f0L2f10QL3Filtered27Q",
+                                     ##
+                                     #"hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered",
+                                     #"hltL3crIsoL1sMu22Or25L1f0L2f10QL3f27QL3trkIsoFiltered",
+                                     #"hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q",
+                                     #"hltL3fL1DoubleMu155fPreFiltered8",
+                                     #"hltL3fL1DoubleMu155fFiltered17",
+                                     #"hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL1Filtered0",
+                                     #"hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegL1MatchFilter",
+                                     #"hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL1Filtered0",
+                                     #"hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegL1MatchFilter",
+                                 ),
+				 HLTprocess = cms.string("HLT"),
 				#
                                  # Objects specific to MiniAOD format
                                 #
@@ -216,13 +241,15 @@ process.ntupler = cms.EDAnalyzer('Ntupler',
 				  eleMVA80Iso    =  cms.InputTag('egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp80'),
 				#  eleMVA80Iso    =  cms.InputTag('egmGsfElectronIDs:mvaEleID-Fall17-iso-V2-wp80'),
 				#  eleMVALooseIso =  cms.InputTag('egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wpLoose'),
-                                  eleIdMapTight22 = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID_Winter22_122X_V1-tight"),
+                                  #eleIdMapTight22 = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID_Winter22_122X_V1-tight"),
+                                  eleIdMapTight22 = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-RunIIIWinter22-V1-tight"),
+                                  eleIdMapMVA9022Iso = cms.InputTag("egmGsfElectronIDs:mvaEleID-RunIIIWinter22-iso-V1-wp90"),
 				  eleMVAValuesMapTokenIso = cms.InputTag('electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values'),		
 				  eleMVAValuesMapTokenNoIso = cms.InputTag('electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values'),	
                                   muInputTag = cms.InputTag("gmtStage2Digis","Muon","RECO"),
                                   egInputTag = cms.InputTag("caloStage2Digis","EGamma","RECO"),
                                  isMC = cms.bool(False),
-                                 doMuon = cms.bool(False),
+                                 doMuon = cms.bool(True),
                                  doEle = cms.bool(True)
                                  )
 
@@ -231,4 +258,6 @@ process.TFileService = cms.Service("TFileService",
                                    fileName = cms.string( outputFile )
                                    )
 
-process.p = cms.Path(process.egmGsfElectronIDSequence * process.minPtLeptonEle * process.ntupler)
+#process.p = cms.Path(process.egmGsfElectronIDSequence * process.ntupler)
+process.p = cms.Path(process.egmGsfElectronIDSequence * process.minPtLeptonMu * process.minPtLeptonEle * process.ntupler)
+#process.p = cms.Path(process.egmGsfElectronIDSequence * process.minPtLeptons * process.atLeastTwoLeptons * process.ntupler)

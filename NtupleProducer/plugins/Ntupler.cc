@@ -25,19 +25,6 @@ Ntupler::Ntupler(const edm::ParameterSet& iConfig):
   eleIdMapMVAIsoWP80Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleMVA80Iso"))),
   eleIdMapTight22Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleIdMapTight22"))),
   eleIdMapMVA9022IsoToken_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleIdMapMVA9022Iso"))),
-  /*
-  eleIdMapLoosev1Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleIdMapLoosev1"))),
-  eleIdMapMediumv1Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleIdMapMediumv1"))),
-  eleIdMapTightv1Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleIdMapTightv1"))),
-  eleIdMapMVAnoIsoWP90v1Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleMVA90noIsov1"))),
-  eleIdMapMVAnoIsoWP80v1Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleMVA80noIsov1"))),
-  eleIdMapMVAIsoWP90v1Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleMVA90Isov1"))),
-  eleIdMapMVAIsoWP80v1Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleMVA80Isov1"))),
-*/
-//  eleIdMapMVAIsoWPLooseToken_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleMVALooseIso"))),
-//  //  eleMVAValuesMapTokenIso_(consumes<edm::ValueMap<float> >(iConfig.getParameter<edm::InputTag>("eleMVAValuesMapTokenIso"))),
-//  //  eleMVAValuesMapTokenNoIso_(consumes<edm::ValueMap<float> >(iConfig.getParameter<edm::InputTag>("eleMVAValuesMapTokenNoIso"))),
-//  //  eleIdMapMVAnoIsoWPLooseToken_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("eleMVALoosenoIso"))),
   isMC_(iConfig.getParameter<bool>("isMC")),
   doEle_(iConfig.getParameter<bool>("doEle")),
   doMuon_(iConfig.getParameter<bool>("doMuon")),
@@ -212,15 +199,15 @@ Ntupler::Ntupler(const edm::ParameterSet& iConfig):
   tree_->Branch("passL1EG20Iso", &passL1EG20Iso);
   tree_->Branch("triggerPath" ,  &triggerPath);
   tree_->Branch("triggerDecision" ,  &triggerDecision);
+  tree_->Branch("passFilterEle30"           ,  &passFilterEle30);
   tree_->Branch("passFilterEle32"           ,  &passFilterEle32);
   tree_->Branch("passFilterEle35"           ,  &passFilterEle35);
   tree_->Branch("passFilterEle23_12_leg1"   ,  &passFilterEle23_12_leg1);
   tree_->Branch("passFilterEle23_12_leg2"   ,  &passFilterEle23_12_leg2);
-  tree_->Branch("passFilterMu12_Ele23_legEle"   ,  &passFilterMu12_Ele23_legEle);
+  tree_->Branch("passFilterMu8_Ele23_legEle"   ,  &passFilterMu8_Ele23_legEle);
   tree_->Branch("passFilterMu23_Ele12_legEle"   ,  &passFilterMu23_Ele12_legEle);
   tree_->Branch("L1EG_35"  ,  &L1EG_35) ;
   tree_->Branch("L1EG_23_12"  ,  &L1EG_23_12) ;
-
 
 
  // Trigger objects
@@ -297,16 +284,16 @@ if(doMuon_) {
   tree_->Branch("passFilterMu17_Mu8_leg2" ,  &passFilterMu17_Mu8_leg2);
   tree_->Branch("passFilterMu17_Mu8_leg2_wL1" ,  &passFilterMu17_Mu8_leg2_wL1);
   tree_->Branch("passFilterMu17_Mu8_IsoLeg" ,  &passFilterMu17_Mu8_IsoLeg);
-  tree_->Branch("passFilterMu12_Ele23_legMu" ,  &passFilterMu12_Ele23_legMu);
-  tree_->Branch("passFilterMu12_HLTOnly" ,  &passFilterMu12_HLTOnly);
+  tree_->Branch("passFilterMu8_Ele23_legMu" ,  &passFilterMu8_Ele23_legMu);
+  tree_->Branch("passFilterMu8_HLTOnly" ,  &passFilterMu8_HLTOnly);
   tree_->Branch("passFilterMu23_Ele12_legMu" ,  &passFilterMu23_Ele12_legMu);
 
-  tree_->Branch("passFilterMu12_Ele23_legMu_L10p5" ,  &passFilterMu12_Ele23_legMu_L10p5);
-  tree_->Branch("passFilterMu12_Ele23_legMu_L10p3" ,  &passFilterMu12_Ele23_legMu_L10p3);
+  tree_->Branch("passFilterMu8_Ele23_legMu_L10p5" ,  &passFilterMu8_Ele23_legMu_L10p5);
+  tree_->Branch("passFilterMu8_Ele23_legMu_L10p3" ,  &passFilterMu8_Ele23_legMu_L10p3);
   tree_->Branch("passFilterMu23_Ele12_legMu_L10p5" ,  &passFilterMu23_Ele12_legMu_L10p5);
   tree_->Branch("passFilterMu23_Ele12_legMu_L10p3" ,  &passFilterMu23_Ele12_legMu_L10p3);
-  tree_->Branch("passFilterMu12_L10p5" ,  &passFilterMu12_L10p5);
-  tree_->Branch("passFilterMu12_L10p3" ,  &passFilterMu12_L10p3);
+  tree_->Branch("passFilterMu8_L10p5" ,  &passFilterMu8_L10p5);
+  tree_->Branch("passFilterMu8_L10p3" ,  &passFilterMu8_L10p3);
   tree_->Branch("passFilterMu23_L10p5" ,  &passFilterMu23_L10p5);
   tree_->Branch("passFilterMu23_L10p3" ,  &passFilterMu23_L10p3);
 
@@ -333,16 +320,49 @@ Ntupler::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   using namespace std;
   using namespace edm;
   using namespace reco;
+  
+  //// ---------- EGamma HLT filters according to https://cmshltinfo.app.cern.ch/
+
+  // HLT_Ele30_WPTight_Gsf_v                         --->  hltEle30WPTightGsfTrackIsoFilter
+  // HLT_Ele32_WPTight_Gsf_v                         --->  hltEle32WPTightGsfTrackIsoFilter
+  // HLT_Ele35_WPTight_Gsf_v                         --->  hltEle35noerWPTightGsfTrackIsoFilter
+  // HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v
+  //                                                 --->  hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg1Filter
+  //                                                 --->  hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg2Filter
+  //
+  // HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v (Electron Leg) ---> hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter
+  // HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v (Electron Leg) ---> hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter
+
+  
+  //// ---------- Muon HLT filters according to https://cmshltinfo.app.cern.ch/
+
+  // HLT_IsoMu24_v                                   --->  hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered (hltL3fL1sSingleMu22L1f0L2f10QL3Filtered24Q)
+  // HLT_IsoMu27_v                                   --->  hltL3crIsoL1sMu22Or25L1f0L2f10QL3f27QL3trkIsoFiltered (hltL3fL1sMu22Or25L1f0L2f10QL3Filtered27Q)
+  // HLT_Mu50_v                                      --->  hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q
+  // HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_v   --->  hltL3fL1DoubleMu155fFiltered17 (hltL3fL1DoubleMu155fPreFiltered8)
+  // HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_v     --->  hltL3fL1DoubleMu155fFiltered17 (hltL3fL1DoubleMu155fPreFiltered8)
+  //
+  // HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v (Muon Leg)  --->  hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered8
+  // HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v   (Muon Leg)  --->  hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered23
 
 
+  TString ele_filters[7] = {"hltEle30WPTightGsfTrackIsoFilter", "hltEle32WPTightGsfTrackIsoFilter", "hltEle35noerWPTightGsfTrackIsoFilter", "hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg1Filter", "hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg2Filter" ,
+			    "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter", "hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter"};
+
+  TString mu_filters[7] = {"hltL3fL1sSingleMu22L1f0L2f10QL3Filtered24Q", "hltL3fL1sMu22Or25L1f0L2f10QL3Filtered27Q", "hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q", "hltL3fL1DoubleMu155fFiltered17", "hltL3fL1DoubleMu155fPreFiltered8",
+			   "hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL1Filtered0", "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL1Filtered0"};
+  
+  /**
   TString ele_filters[12] = {"hltEle32WPTightGsfTrackIsoFilter","hltEle35noerWPTightGsfTrackIsoFilter","hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg1Filter","hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg2Filter","hltEle115CaloIdVTGsfTrkIdTGsfDphiFilter","hltEle50CaloIdVTGsfTrkIdTGsfDphiFilter","hltDiEle25CaloIdLMWPMS2UnseededFilter","hltDiEle27L1DoubleEGWPTightHcalIsoFilter","hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter","hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter", "hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegL1MatchFilter", "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegL1MatchFilter"};
 
   //TString mu_filters[7] = {"hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered","hltL3crIsoL1sMu22Or25L1f0L2f10QL3f27QL3trkIsoFiltered","hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q","hltL3fL1DoubleMu155fPreFiltered8","hltL3fL1DoubleMu155fFiltered17","hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL1Filtered0","hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL1Filtered0"}; // For Run2022EE
 
   TString mu_filters[7] = {"hltL3fL1sSingleMu22L1f0L2f10QL3Filtered24Q","hltL3fL1sMu22Or25L1f0L2f10QL3Filtered27Q","hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q","hltL3fL1DoubleMu155fPreFiltered8","hltL3fL1DoubleMu155fFiltered17","hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL1Filtered0","hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL1Filtered0"}; // For Run2022BCD
   
+
   //hltL3fL1sSingleMu22L1f0L2f10QL3Filtered24Q
   //hltL3fL1sMu22Or25L1f0L2f10QL3Filtered27Q
+  **/
   
   if(isMC_)
   {  // Get gen weight info
@@ -472,36 +492,6 @@ Ntupler::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 
   iEvent.getByToken(eleIdMapTight22Token_,tight_ele_id22_decisions);
   iEvent.getByToken(eleIdMapMVA9022IsoToken_, mva90_iso22_decisions);
-
-  
-/*
-  edm::Handle<edm::ValueMap<bool> > loose_ele_id_decisionsv1;
-  edm::Handle<edm::ValueMap<bool> > medium_ele_id_decisionsv1;
-  edm::Handle<edm::ValueMap<bool> > tight_ele_id_decisionsv1;
-  edm::Handle<edm::ValueMap<bool> > eleMVAnoIsoWP90v1;
-  edm::Handle<edm::ValueMap<bool> > eleMVAnoIsoWP80v1;
-  edm::Handle<edm::ValueMap<bool> > eleMVAIsoWP90v1;
-  edm::Handle<edm::ValueMap<bool> > eleMVAIsoWP80v1;
-
-
-  iEvent.getByToken(eleIdMapLoosev1Token_ ,loose_ele_id_decisionsv1);
-  iEvent.getByToken(eleIdMapMediumv1Token_ ,medium_ele_id_decisionsv1);
-  iEvent.getByToken(eleIdMapTightv1Token_ ,tight_ele_id_decisionsv1);
-  iEvent.getByToken(eleIdMapMVAnoIsoWP90v1Token_ ,eleMVAnoIsoWP90v1);
-  iEvent.getByToken(eleIdMapMVAnoIsoWP80v1Token_ ,eleMVAnoIsoWP80v1);
-  iEvent.getByToken(eleIdMapMVAIsoWP90v1Token_ ,eleMVAIsoWP90v1);
-  iEvent.getByToken(eleIdMapMVAIsoWP80v1Token_ ,eleMVAIsoWP80v1);
-*/
-
-//  edm::Handle<edm::ValueMap<float> > eleMVAnoIsovalue;
-//  //  edm::Handle<edm::ValueMap<float> > eleMVAisovalue; 
-//  //  edm::Handle<edm::ValueMap<bool> > eleMVAIsoWPLoose;
-//  //  edm::Handle<edm::ValueMap<bool> > eleMVAnoIsoWPLoose;
-//   // iEvent.getByToken(eleIdMapMVAnoIsoWPLooseToken_ ,eleMVAnoIsoWPLoose);
-//   //  iEvent.getByToken(eleIdMapMVAIsoWPLooseToken_ ,eleMVAIsoWPLoose);
-//   //  iEvent.getByToken(eleMVAValuesMapTokenIso_ ,eleMVAisovalue);
-//   //  iEvent.getByToken(eleMVAValuesMapTokenNoIso_ ,eleMVAnoIsovalue);
-
 
   cout << "--------------------- Start event ----------------------- " << endl;
 
@@ -654,12 +644,13 @@ Ntupler::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
       passL1EG23 .clear();
       passL1EG20Iso .clear();
       passL1EG23Iso .clear();
- 
+
+      passFilterEle30          .clear();
       passFilterEle32          .clear(); 
       passFilterEle35          .clear();
       passFilterEle23_12_leg1  .clear();
       passFilterEle23_12_leg2  .clear();
-      passFilterMu12_Ele23_legEle.clear();
+      passFilterMu8_Ele23_legEle.clear();
       passFilterMu23_Ele12_legEle.clear();
     
       L1EG_35.clear();
@@ -673,12 +664,12 @@ Ntupler::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
       nElectrons_++;
       ele_pt_.push_back( el->pt() );
       ele_etaSC_.push_back( el->superCluster()->eta() );
- //     ele_phiSC_.push_back( el->superCluster()->phi() );
+      //     ele_phiSC_.push_back( el->superCluster()->phi() );
       ele_eta_.push_back( el->eta() );
       ele_phi_.push_back( el->phi() );
       ele_tricharge_.push_back( el->chargeInfo().isGsfCtfScPixConsistent );
- //     ele_energy_.push_back( el->energy() );
- //     ele_energySC_.push_back( el->superCluster()->energy() );
+      //     ele_energy_.push_back( el->energy() );
+      //     ele_energySC_.push_back( el->superCluster()->energy() );
       ele_charge_.push_back( el->charge() );
 
       // L1 EGamma triggers
@@ -686,42 +677,43 @@ Ntupler::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
       float maxL1MatchedNorm = -1;
       float maxL1MatchedIso = -1;
       bool L1EG10(false), L1EG17(false), L1EG23(false), L1EG20Iso(false), L1EG23Iso(false);
-       if (L1EG.isValid()) {
+      if (L1EG.isValid()) {
         for(int ibx=L1EG->getFirstBX(); ibx<=L1EG->getLastBX();ibx++) {
-        for(std::vector<l1t::EGamma>::const_iterator L1eg = L1EG->begin(ibx); L1eg != L1EG->end(ibx); ++L1eg) {
-
-                float L1EGPt = L1eg->pt();
-                float L1EGEta = L1eg->eta();
-                float L1EGPhi = L1eg->phi();
-                float L1EGiso = L1eg->hwIso();
-
-         float delRL1_EG = deltaR(L1EGEta,L1EGPhi ,el->eta(),el->phi());
-         if (delRL1_EG < 0.5) {
-         if(L1eg->pt() > maxL1MatchedNorm) maxL1MatchedNorm = L1eg->pt();
-         if(L1eg->hwIso() == 1 && L1eg->pt()>maxL1MatchedIso) maxL1MatchedIso = L1eg->pt();
+	  for(std::vector<l1t::EGamma>::const_iterator L1eg = L1EG->begin(ibx); L1eg != L1EG->end(ibx); ++L1eg) {
+	    
+	    float L1EGPt = L1eg->pt();
+	    float L1EGEta = L1eg->eta();
+	    float L1EGPhi = L1eg->phi();
+	    float L1EGiso = L1eg->hwIso();
+	    
+	    float delRL1_EG = deltaR(L1EGEta,L1EGPhi ,el->eta(),el->phi());
+	    if (delRL1_EG < 0.5) {
+	      if(L1eg->pt() > maxL1MatchedNorm) maxL1MatchedNorm = L1eg->pt();
+	      if(L1eg->hwIso() == 1 && L1eg->pt()>maxL1MatchedIso) maxL1MatchedIso = L1eg->pt();
             }
-       }
-     }
-
+	  }
+	}
+	
         if(maxL1MatchedNorm >= 10) L1EG10 = true;
         if(maxL1MatchedNorm >= 17) L1EG17 = true;
         if(maxL1MatchedNorm >= 23) L1EG23 = true;
         if(maxL1MatchedIso >= 20) L1EG20Iso = true;
         if(maxL1MatchedIso >= 23) L1EG23Iso = true;
-}
-
-        passL1EG10 .push_back(L1EG10);
-        passL1EG17 .push_back(L1EG17);
-        passL1EG23 .push_back(L1EG23);
-        passL1EG20Iso .push_back(L1EG20Iso);
-        passL1EG23Iso .push_back(L1EG23Iso);
-
+      }
+      
+      passL1EG10 .push_back(L1EG10);
+      passL1EG17 .push_back(L1EG17);
+      passL1EG23 .push_back(L1EG23);
+      passL1EG20Iso .push_back(L1EG20Iso);
+      passL1EG23Iso .push_back(L1EG23Iso);
+      
       // Trigger matching
+      bool filterEle30 = false;
       bool filterEle32 = false;
       bool filterEle35 = false;
       bool filterEle23_12_leg1 = false;
       bool filterEle23_12_leg2 = false;
-      bool filterMu12_Ele23_legEle = false;
+      bool filterMu8_Ele23_legEle = false;
       bool filterMu23_Ele12_legEle = false;
       
       for (unsigned int iteTrigObj = 0 ; iteTrigObj < filterToMatch_.size() ; iteTrigObj++){
@@ -736,50 +728,42 @@ Ntupler::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
           }
         }
 
-	//       cout<<"filter : "<<ele_filters[4].Contain(filter)<<"    foundTheLeg : "<<foundTheLeg<<endl;
-	// for reference
-	//   TString ele_filters[6] = {"hltEle32WPTightGsfTrackIsoFilter","hltEle35noerWPTightGsfTrackIsoFilter","hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg1Filter","hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg2Filter","hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter","hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter"};
+	//TString ele_filters[7] = {"hltEle30WPTightGsfTrackIsoFilter", "hltEle32WPTightGsfTrackIsoFilter", "hltEle35noerWPTightGsfTrackIsoFilter", "hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg1Filter", "hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg2Filter" ,
+	//			  "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter", "hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter"};
 	
-	if(ele_filters[0].Contains(filter) && foundTheLeg)  filterEle32 = true;
-	if(ele_filters[1].Contains(filter) && foundTheLeg)  filterEle35 = true;
-        if(ele_filters[2].Contains(filter) && foundTheLeg)  filterEle23_12_leg1 = true;
-        if(ele_filters[3].Contains(filter) && foundTheLeg)  filterEle23_12_leg2 = true;
-
-        if(ele_filters[8].Contains(filter) && foundTheLeg)  filterMu12_Ele23_legEle = true;
-        if(ele_filters[9].Contains(filter) && foundTheLeg)  filterMu23_Ele12_legEle = true;
-	if(ele_filters[10].Contains(filter) && foundTheLeg)  filterMu12_Ele23_legEle = true;
-        if(ele_filters[11].Contains(filter) && foundTheLeg)  filterMu23_Ele12_legEle = true;
-
+	if(ele_filters[0].Contains(filter) && foundTheLeg)  filterEle30 = true;
+	if(ele_filters[1].Contains(filter) && foundTheLeg)  filterEle32 = true;
+	if(ele_filters[2].Contains(filter) && foundTheLeg)  filterEle35 = true;
+        if(ele_filters[3].Contains(filter) && foundTheLeg)  filterEle23_12_leg1 = true;
+        if(ele_filters[4].Contains(filter) && foundTheLeg)  filterEle23_12_leg2 = true;
+	if(ele_filters[5].Contains(filter) && foundTheLeg)  filterMu8_Ele23_legEle = true;
+	if(ele_filters[6].Contains(filter) && foundTheLeg)  filterMu23_Ele12_legEle = true;
+	
 
       }
 
+      passFilterEle30          .push_back(filterEle30);
       passFilterEle32          .push_back(filterEle32);
       passFilterEle35          .push_back(filterEle35);
       passFilterEle23_12_leg1  .push_back(filterEle23_12_leg1);
       passFilterEle23_12_leg2  .push_back(filterEle23_12_leg2);
-      passFilterMu12_Ele23_legEle  .push_back(filterMu12_Ele23_legEle);
+      passFilterMu8_Ele23_legEle  .push_back(filterMu8_Ele23_legEle);
       passFilterMu23_Ele12_legEle  .push_back(filterMu23_Ele12_legEle);
   
       // ID and matching
       ele_dEtaIn_.push_back( el->deltaEtaSuperClusterTrackAtVtx() );
-    // Calculation of dEtaSeed is taken from VID (by HEEP folks)
-    //   https://github.com/cms-sw/cmssw/blob/CMSSW_8_1_X/RecoEgamma/ElectronIdentification/plugins/cuts/GsfEleDEtaInSeedCut.cc#L31-L32
-      float dEtaSeedValue = 
-      el->superCluster().isNonnull() && el->superCluster()->seed().isNonnull() 
-      ? 
-      el->deltaEtaSuperClusterTrackAtVtx() 
-      - el->superCluster()->eta() 
-      + el->superCluster()->seed()->eta() 
-      : std::numeric_limits<float>::max();
+      // Calculation of dEtaSeed is taken from VID (by HEEP folks)
+      //   https://github.com/cms-sw/cmssw/blob/CMSSW_8_1_X/RecoEgamma/ElectronIdentification/plugins/cuts/GsfEleDEtaInSeedCut.cc#L31-L32
+      float dEtaSeedValue = el->superCluster().isNonnull() && el->superCluster()->seed().isNonnull() ? el->deltaEtaSuperClusterTrackAtVtx() - el->superCluster()->eta() + el->superCluster()->seed()->eta() : std::numeric_limits<float>::max();
       ele_dEtaSeed_.push_back( dEtaSeedValue );
       ele_dPhiIn_.push_back( el->deltaPhiSuperClusterTrackAtVtx() );
       ele_hOverE_.push_back( el->hadronicOverEm() );
       ele_full5x5_sigmaIetaIeta_.push_back( el->full5x5_sigmaIetaIeta() );
-    // |1/E-1/p| = |1/E - EoverPinner/E| is computed below
-    // The if protects against ecalEnergy == inf or zero
-    // (always the case for miniAOD for electrons <5 GeV)
+      // |1/E-1/p| = |1/E - EoverPinner/E| is computed below
+      // The if protects against ecalEnergy == inf or zero
+      // (always the case for miniAOD for electrons <5 GeV)
       if( el->ecalEnergy() == 0 ){
-//        printf("Electron energy is zero!\n");
+	//        printf("Electron energy is zero!\n");
         ele_ooEmooP_.push_back( 1e30 );
       }else if( !std::isfinite(el->ecalEnergy())){
         printf("Electron energy is not finite!\n");
@@ -953,16 +937,16 @@ Ntupler::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
      passFilterMu17_Mu8_leg2 .clear();
      passFilterMu17_Mu8_leg2_wL1 .clear();
      passFilterMu17_Mu8_IsoLeg .clear();
-     passFilterMu12_Ele23_legMu.clear();
+     passFilterMu8_Ele23_legMu.clear();
      passFilterMu23_Ele12_legMu.clear();
-     passFilterMu12_HLTOnly.clear();
+     passFilterMu8_HLTOnly.clear();
 
-     passFilterMu12_Ele23_legMu_L10p5.clear();
-     passFilterMu12_Ele23_legMu_L10p3.clear();
+     passFilterMu8_Ele23_legMu_L10p5.clear();
+     passFilterMu8_Ele23_legMu_L10p3.clear();
      passFilterMu23_Ele12_legMu_L10p5.clear();
      passFilterMu23_Ele12_legMu_L10p3.clear();
-     passFilterMu12_L10p5.clear();
-     passFilterMu12_L10p3.clear();
+     passFilterMu8_L10p5.clear();
+     passFilterMu8_L10p3.clear();
      passFilterMu23_L10p5.clear();
      passFilterMu23_L10p3.clear();
 
@@ -1018,15 +1002,15 @@ Ntupler::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
        bool filterMu17_Mu8_Leg2 = false;
        bool filterMu17_Mu8_Leg2_wL1 = false;
        bool filterMu17_Mu8_IsoLeg = false;
-       bool filterMu12_Ele23_legMu = false;
-       bool filterMu12_HLTOnly = false;       
+       bool filterMu8_Ele23_legMu = false;
+       bool filterMu8_HLTOnly = false;       
 
        bool filterMu23_Ele12_legMu_L10p3 = false;
        bool filterMu23_Ele12_legMu_L10p5 = false;
-       bool filterMu12_Ele23_legMu_L10p5 = false;
-       bool filterMu12_Ele23_legMu_L10p3 = false;
-       bool filterMu12_L1T0p5 = false;    
-       bool filterMu12_L1T0p3 = false;    
+       bool filterMu8_Ele23_legMu_L10p5 = false;
+       bool filterMu8_Ele23_legMu_L10p3 = false;
+       bool filterMu8_L1T0p5 = false;    
+       bool filterMu8_L1T0p3 = false;    
        bool filterMu23_L1T0p5 = false;    
        bool filterMu23_L1T0p3 = false;    
 
@@ -1044,27 +1028,24 @@ Ntupler::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
               }
           }
 
-	  //if (foundTheLeg){
-	  //  cout << filter << endl;
-	  //}
+	  //TString mu_filters[7] = {"hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered", "hltL3crIsoL1sMu22Or25L1f0L2f10QL3f27QL3trkIsoFiltered", "hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q", "hltL3fL1DoubleMu155fFiltered17", "hltL3fL1DoubleMu155fPreFiltered8",
+          //                 "hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered8", "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered23"};
 	  
 	  if(mu_filters[0].Contains(filter) && foundTheLeg)  filterIsoMu24 = true;
           if(mu_filters[1].Contains(filter) && foundTheLeg)  filterIsoMu27 = true;	  
           if(mu_filters[2].Contains(filter) && foundTheLeg)  filterMu50 = true;
 
-          if(mu_filters[4].Contains(filter) && foundTheLeg)  {filterMu17_Mu8_Leg1 = true; }
-          if(mu_filters[3].Contains(filter) && foundTheLeg)  {filterMu17_Mu8_Leg2 = true; }
-          if(mu_filters[4].Contains(filter) && foundTheLeg)  {filterMu17_Mu8_IsoLeg = true; }
+          if(mu_filters[3].Contains(filter) && foundTheLeg)  {filterMu17_Mu8_Leg1 = true; }
+          if(mu_filters[4].Contains(filter) && foundTheLeg)  {filterMu17_Mu8_Leg2 = true; }
+          if(mu_filters[3].Contains(filter) && foundTheLeg)  {filterMu17_Mu8_IsoLeg = true; }
     
-          if(mu_filters[5].Contains(filter) && foundTheLeg && legObjects[iteTrigObj].at(iPass).pt()>=12 && delRL1_7_L10p3 < 0.3 )  {filterMu12_Ele23_legMu_L10p3 = true; }
-          if(mu_filters[5].Contains(filter) && foundTheLeg && legObjects[iteTrigObj].at(iPass).pt()>=12 && delRL1_7_L10p5 < 0.5 )  {filterMu12_Ele23_legMu_L10p5 = true; }
+          if(mu_filters[5].Contains(filter) && foundTheLeg && legObjects[iteTrigObj].at(iPass).pt()>=12 && delRL1_7_L10p3 < 0.3 )  {filterMu8_Ele23_legMu_L10p3 = true; }
+          if(mu_filters[5].Contains(filter) && foundTheLeg && legObjects[iteTrigObj].at(iPass).pt()>=12 && delRL1_7_L10p5 < 0.5 )  {filterMu8_Ele23_legMu_L10p5 = true; }
           if(mu_filters[6].Contains(filter) && foundTheLeg && legObjects[iteTrigObj].at(iPass).pt()>=23 && delRL1_23_L10p3 < 0.3 ) {filterMu23_Ele12_legMu_L10p3 = true; }
           if(mu_filters[6].Contains(filter) && foundTheLeg && legObjects[iteTrigObj].at(iPass).pt()>=23 && delRL1_23_L10p5 < 0.5 ) {filterMu23_Ele12_legMu_L10p5 = true; }
 
-
-
-	  if(delRL1_7_L10p5 < 0.5 )  {filterMu12_L1T0p5 = true;}
-          if(delRL1_7_L10p3 < 0.3 )  {filterMu12_L1T0p3 = true;} 
+	  if(delRL1_7_L10p5 < 0.5 )  {filterMu8_L1T0p5 = true;}
+          if(delRL1_7_L10p3 < 0.3 )  {filterMu8_L1T0p3 = true;} 
           if(delRL1_23_L10p5 < 0.5 )  {filterMu23_L1T0p5 = true;} 
           if(delRL1_23_L10p3 < 0.3 )  {filterMu23_L1T0p3 = true;} 
   
@@ -1076,16 +1057,15 @@ Ntupler::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
        passFilterMu50       .push_back(filterMu50);
        passFilterMu17_Mu8_leg1 .push_back(filterMu17_Mu8_Leg1);
        passFilterMu17_Mu8_leg2 .push_back(filterMu17_Mu8_Leg2);
-//       passFilterMu17_Mu8_leg2_wL1 .push_back(filterMu17_Mu8_Leg2_wL1);
        passFilterMu17_Mu8_IsoLeg .push_back(filterMu17_Mu8_IsoLeg);
-       passFilterMu12_Ele23_legMu .push_back(filterMu12_Ele23_legMu);
-       passFilterMu12_Ele23_legMu_L10p5 .push_back(filterMu12_Ele23_legMu_L10p5);
-       passFilterMu12_Ele23_legMu_L10p3 .push_back(filterMu12_Ele23_legMu_L10p3);
+       passFilterMu8_Ele23_legMu .push_back(filterMu8_Ele23_legMu);
+       passFilterMu8_Ele23_legMu_L10p5 .push_back(filterMu8_Ele23_legMu_L10p5);
+       passFilterMu8_Ele23_legMu_L10p3 .push_back(filterMu8_Ele23_legMu_L10p3);
        passFilterMu23_Ele12_legMu_L10p5 .push_back(filterMu23_Ele12_legMu_L10p5);
        passFilterMu23_Ele12_legMu_L10p3 .push_back(filterMu23_Ele12_legMu_L10p3);
-       passFilterMu12_HLTOnly .push_back(filterMu12_HLTOnly);
-       passFilterMu12_L10p5 .push_back(filterMu12_L1T0p5);
-       passFilterMu12_L10p3 .push_back(filterMu12_L1T0p3);
+       passFilterMu8_HLTOnly .push_back(filterMu8_HLTOnly);
+       passFilterMu8_L10p5 .push_back(filterMu8_L1T0p5);
+       passFilterMu8_L10p3 .push_back(filterMu8_L1T0p3);
        passFilterMu23_L10p5 .push_back(filterMu23_L1T0p5);
        passFilterMu23_L10p3 .push_back(filterMu23_L1T0p3);
 

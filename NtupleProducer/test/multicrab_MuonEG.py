@@ -16,7 +16,6 @@ listOfSamples = [
    'Run2022C',
    'Run2022D',
 ]
-'''
 
 dataset = {
    'Run2022E' : '/MuonEG/Run2022E-22Sep2023-v1/MINIAOD',
@@ -29,7 +28,6 @@ listOfSamples = [
 ]
 
 
-'''
 dataset = {
    'Run2022F' : '/MuonEG/Run2022F-PromptReco-v1/MINIAOD',
    'Run2022G' : '/MuonEG/Run2022G-PromptReco-v1/MINIAOD',
@@ -44,7 +42,39 @@ listOfSamples = [
    'Run2022F',
    'Run2022G',
 ]
+
+dataset = {
+   "Run2023C_v1": "/MuonEG/Run2023C-22Sep2023_v1-v1/MINIAOD",
+   "Run2023C_v2": "/MuonEG/Run2023C-22Sep2023_v2-v1/MINIAOD",
+   "Run2023C_v3": "/MuonEG/Run2023C-22Sep2023_v3-v1/MINIAOD",
+   "Run2023C_v4": "/MuonEG/Run2023C-22Sep2023_v4-v1/MINIAOD",
+}
+lumisPerJob = {
+   "Run2023C_v1": 100,
+   "Run2023C_v2": 100,
+   "Run2023C_v3": 100,
+   "Run2023C_v4": 100,
+}
+listOfSamples = [
+   "Run2023C_v1",
+   "Run2023C_v2",
+   "Run2023C_v3",
+   "Run2023C_v4",
+]
 '''
+
+dataset = {
+   "Run2023D_v1": "/MuonEG/Run2023D-22Sep2023_v1-v1/MINIAOD",
+   "Run2023D_v2": "/MuonEG/Run2023D-22Sep2023_v2-v1/MINIAOD",
+}
+lumisPerJob = {
+   "Run2023D_v1": 100,
+   "Run2023D_v2": 100,
+}
+listOfSamples = [
+   "Run2023D_v1",
+   "Run2023D_v2",
+]
 
 if __name__ == '__main__':
 
@@ -57,7 +87,7 @@ if __name__ == '__main__':
    def submit(config):
        res = crabCommand('submit', config = config)
 
-   config.General.workArea = 'crab_TrigEff_HWW_MuEG_2022'
+   config.General.workArea = 'crab_TrigEff_HWW_MuEG_2023BPix'
    config.General.transferLogs = False
 
    config.JobType.pluginName = 'Analysis'
@@ -66,11 +96,12 @@ if __name__ == '__main__':
 
    config.Data.inputDBS = 'global'
    config.Data.splitting = 'LumiBased'
-   config.Data.lumiMask = 'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json'
-
+   #config.Data.lumiMask = 'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json'
+   config.Data.lumiMask = 'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions23/Cert_Collisions2023_366442_370790_Golden.json'
+   
    config.Data.publication = False
    config.Data.totalUnits = -1
-   config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/calderon/TriggerEff_RunIII_prompt/TrigEff_HWW_MuEG_2022EReReco'
+   config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/calderon/TriggerEff_RunIII_prompt/TrigEff_HWW_MuEG_2023BPix'
 
    config.Site.storageSite ='T2_CH_CERN'
  #  config.Site.blacklist = ['T2_BR_SPRACE', 'T2_US_Wisconsin', 'T1_RU_JINR', 'T2_RU_JINR', 'T2_EE_Estonia']

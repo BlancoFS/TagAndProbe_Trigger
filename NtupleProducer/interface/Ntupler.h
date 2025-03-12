@@ -194,12 +194,13 @@ class Ntupler : public edm::one::EDAnalyzer<edm::one::SharedResources> {
      std::vector<bool> passL1EG17; 
      std::vector<bool> passL1EG23; 
      std::vector<bool> passL1EG20Iso; 
-     std::vector<bool> passL1EG23Iso; 
+     std::vector<bool> passL1EG23Iso;
+     std::vector<bool> passFilterEle30;
      std::vector<bool> passFilterEle32;
      std::vector<bool> passFilterEle35;
      std::vector<bool> passFilterEle23_12_leg1;
      std::vector<bool> passFilterEle23_12_leg2;
-     std::vector<bool> passFilterMu12_Ele23_legEle;
+     std::vector<bool> passFilterMu8_Ele23_legEle;
      std::vector<bool> passFilterMu23_Ele12_legEle;
      std::vector<bool> L1EG_35 ;
      std::vector<bool> L1EG_23_12 ;
@@ -220,13 +221,6 @@ class Ntupler : public edm::one::EDAnalyzer<edm::one::SharedResources> {
 
      std::vector<bool> passEleIdTight22V1_;
      std::vector<bool> passEleIdMVA90Iso22V1_;
-/*
-       std::vector<bool> passMVAIsoWPLoose_;
-            std::vector<float> valueMVAnoIso_;
-                 std::vector<float> valueMVAIso_;
-                      std::vector<bool> passMVAnoIsoWPLoose_;
-                        */       
-
  
      // all electron variables
 
@@ -335,16 +329,16 @@ class Ntupler : public edm::one::EDAnalyzer<edm::one::SharedResources> {
      std::vector<bool> passFilterMu17_Mu8_leg2;
      std::vector<bool> passFilterMu17_Mu8_leg2_wL1;
      std::vector<bool> passFilterMu17_Mu8_IsoLeg;
-     std::vector<bool> passFilterMu12_Ele23_legMu;
+     std::vector<bool> passFilterMu8_Ele23_legMu;
      std::vector<bool> passFilterMu23_Ele12_legMu;
-     std::vector<bool> passFilterMu12_HLTOnly;
+     std::vector<bool> passFilterMu8_HLTOnly;
 
-     std::vector<bool> passFilterMu12_Ele23_legMu_L10p5;
-     std::vector<bool> passFilterMu12_Ele23_legMu_L10p3;
+     std::vector<bool> passFilterMu8_Ele23_legMu_L10p5;
+     std::vector<bool> passFilterMu8_Ele23_legMu_L10p3;
      std::vector<bool> passFilterMu23_Ele12_legMu_L10p5;
      std::vector<bool> passFilterMu23_Ele12_legMu_L10p3;
-     std::vector<bool> passFilterMu12_L10p5;
-     std::vector<bool> passFilterMu12_L10p3;
+     std::vector<bool> passFilterMu8_L10p5;
+     std::vector<bool> passFilterMu8_L10p3;
      std::vector<bool> passFilterMu23_L10p5;
      std::vector<bool> passFilterMu23_L10p3;
 

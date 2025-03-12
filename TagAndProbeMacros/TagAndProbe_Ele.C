@@ -7,12 +7,12 @@
 void TagAndProbe::Loop(TString output)
 {
    if (fChain == 0) return;
-  bool RunSystematic=false;
-  //vector<TString> systematicVar =  {"nominal"};
+  bool RunSystematic=true;
+  vector<TString> systematicVar =  {"nominal"};
   //vector<TString> systematicVar =  {"TagPt_up"};
   //vector<TString> systematicVar =  {"TagPt_down"};
   //vector<TString> systematicVar =  {"Zmass_up"};
-  vector<TString> systematicVar =  {"Zmass_down"};
+  //vector<TString> systematicVar =  {"Zmass_down"};
   if (RunSystematic)
     {
       systematicVar.push_back("TagPt_up");
@@ -36,35 +36,53 @@ for(int i=0; i<systematicVar.size();i++)
    cout<<systematicVar.at(i).Data()<<endl;
    cout<<" ptTag : "<<ptTag<<" , zMassL : "<<zMassL<<" , zMassR : "<<zMassR<<endl;
    output = "";
-   output +="efficiency_DY_Run2022E_";
+   output +="efficiency_EGamma_Run2023BPix_";
+   //output +="efficiency_DY_Ele_Run2023BPix_";
    output += systematicVar.at(i);
    output +="_Ele.root";
 
    TFile *file = new TFile(output.Data(),"RECREATE");
    Long64_t nentries = fChain->GetEntriesFast();
    double eta_bins[19] = {-2.5,-2.4,-2.3,-2.2,-2.1,-1.566,-1.4442,-0.8,-0.4,0,0.4,0.8,1.4442,1.566,2.1,2.2,2.3,2.4,2.5};
-   double pt_bins_Ele35[16] = {5. ,  15. ,  25. ,  31. ,  32.5,  33.5,  34.5,  35.5,  36.5, 37.5,  39. ,  42.5,  47.5,  55. ,  80. , 150. };
+   double pt_bins_Ele30[17] = {5. ,  15. ,  25. ,  28. ,  29.5,  30.5,  31.5,  32.5,  33.5, 34.5,  36. ,  39.0,  42.5,  47.5,  55. ,  80. , 150. };
+   //double pt_bins_Ele35[16] = {5. ,  15. ,  25. ,  31. ,  32.5,  33.5,  34.5,  35.5,  36.5, 37.5,  39. ,  42.5,  47.5,  55. ,  80. , 150. };
    double pt_bins_Ele23_Ele12_leg1[14] = {0,20,23,24,25,26,30,35,40,45,50,60,100,200};
    double pt_bins_Ele23_Ele12_leg2[16] = {0,10,12,13,14,15,20,25,30,35,40,45,50,60,100,200};
 
    double PU_bins[8] = {0,20,30,40,50,60,70,100};
 
 
+// HLT Ele30
+
+   TH1F *h_Ele30_pt_total = new TH1F("Ele30_pt_total","Ele30_pt",15,pt_bins_Ele30);
+   TH1F *h_Ele30_eta_total = new TH1F("Ele30_eta_total","Ele30_eta",18,eta_bins);
+   TH2F *h_Ele30_pt_eta_total = new TH2F("Ele30_pt_eta_total","Ele30_pt_eta",18,eta_bins,15,pt_bins_Ele30);
+   TH1F *h_Ele30_pt_pass = new TH1F("Ele30_pt_pass","Ele30_pt",15,pt_bins_Ele30);
+   TH1F *h_Ele30_eta_pass = new TH1F("Ele30_eta_pass","Ele30_eta",18,eta_bins);
+   TH2F *h_Ele30_pt_eta_pass = new TH2F("Ele30_pt_eta_pass","Ele30_pt_eta",18,eta_bins,15,pt_bins_Ele30);
+
+   h_Ele30_pt_total->Sumw2();
+   h_Ele30_eta_total->Sumw2();
+   h_Ele30_pt_eta_total->Sumw2();
+   h_Ele30_pt_pass->Sumw2();
+   h_Ele30_eta_pass->Sumw2();
+   h_Ele30_pt_eta_pass->Sumw2();
+   
 // HLT Ele35
+   
+   //TH1F *h_Ele35_pt_total = new TH1F("Ele35_pt_total","Ele35_pt",15,pt_bins_Ele35);
+   //TH1F *h_Ele35_eta_total = new TH1F("Ele35_eta_total","Ele35_eta",18,eta_bins);
+   //TH2F *h_Ele35_pt_eta_total = new TH2F("Ele35_pt_eta_total","Ele35_pt_eta",18,eta_bins,15,pt_bins_Ele35);
+   //TH1F *h_Ele35_pt_pass = new TH1F("Ele35_pt_pass","Ele35_pt",15,pt_bins_Ele35);
+   //TH1F *h_Ele35_eta_pass = new TH1F("Ele35_eta_pass","Ele35_eta",18,eta_bins);
+   //TH2F *h_Ele35_pt_eta_pass = new TH2F("Ele35_pt_eta_pass","Ele35_pt_eta",18,eta_bins,15,pt_bins_Ele35);
 
-   TH1F *h_Ele35_pt_total = new TH1F("Ele35_pt_total","Ele35_pt",15,pt_bins_Ele35);
-   TH1F *h_Ele35_eta_total = new TH1F("Ele35_eta_total","Ele35_eta",18,eta_bins);
-   TH2F *h_Ele35_pt_eta_total = new TH2F("Ele35_pt_eta_total","Ele35_pt_eta",18,eta_bins,15,pt_bins_Ele35);
-   TH1F *h_Ele35_pt_pass = new TH1F("Ele35_pt_pass","Ele35_pt",15,pt_bins_Ele35);
-   TH1F *h_Ele35_eta_pass = new TH1F("Ele35_eta_pass","Ele35_eta",18,eta_bins);
-   TH2F *h_Ele35_pt_eta_pass = new TH2F("Ele35_pt_eta_pass","Ele35_pt_eta",18,eta_bins,15,pt_bins_Ele35);
-
-   h_Ele35_pt_total->Sumw2();
-   h_Ele35_eta_total->Sumw2();
-   h_Ele35_pt_eta_total->Sumw2();
-   h_Ele35_pt_pass->Sumw2();
-   h_Ele35_eta_pass->Sumw2();
-   h_Ele35_pt_eta_pass->Sumw2();
+   //h_Ele35_pt_total->Sumw2();
+   //h_Ele35_eta_total->Sumw2();
+   //h_Ele35_pt_eta_total->Sumw2();
+   //h_Ele35_pt_pass->Sumw2();
+   //h_Ele35_eta_pass->Sumw2();
+   //h_Ele35_pt_eta_pass->Sumw2();
 
 // HLT Ele23_Ele12 Ele23 leg
    TH1F *h_Ele23_Ele12_leg1_pt_total = new TH1F("Ele23_Ele12_leg1_pt_total","Ele23_Ele12_leg1_pt",13,pt_bins_Ele23_Ele12_leg1);
@@ -126,9 +144,9 @@ for(int i=0; i<systematicVar.size();i++)
       if (Z_candLV.M()<zMassL || Z_candLV.M() > zMassR) continue;
 
 
-      h_Ele35_pt_total->Fill(ele_pt->at(second));
-      h_Ele35_eta_total->Fill(ele_etaSC->at(second));
-      h_Ele35_pt_eta_total->Fill(ele_etaSC->at(second),ele_pt->at(second));
+      h_Ele30_pt_total->Fill(ele_pt->at(second));
+      h_Ele30_eta_total->Fill(ele_etaSC->at(second));
+      h_Ele30_pt_eta_total->Fill(ele_etaSC->at(second),ele_pt->at(second));
 
       h_Ele23_Ele12_leg1_pt_total->Fill(ele_pt->at(second)); 
       h_Ele23_Ele12_leg1_eta_total->Fill(ele_etaSC->at(second)); 
@@ -139,10 +157,10 @@ for(int i=0; i<systematicVar.size();i++)
       h_Ele23_Ele12_leg2_pt_eta_total->Fill(ele_etaSC->at(second),ele_pt->at(second)); 
 
 
-      if (passFilterEle35->at(second)){
-	h_Ele35_pt_pass->Fill(ele_pt->at(second));
-	h_Ele35_eta_pass->Fill(ele_etaSC->at(second));
-	h_Ele35_pt_eta_pass->Fill(ele_etaSC->at(second),ele_pt->at(second));
+      if (passFilterEle30->at(second)){
+	h_Ele30_pt_pass->Fill(ele_pt->at(second));
+	h_Ele30_eta_pass->Fill(ele_etaSC->at(second));
+	h_Ele30_pt_eta_pass->Fill(ele_etaSC->at(second),ele_pt->at(second));
       }
 
       if (passFilterEle23_12_leg1->at(second)){
@@ -181,7 +199,6 @@ if (!mvaid) return false;
 if (fabs(ele_d0->at(i))>=0.05) return false;
 if (fabs(ele_dz->at(i))>=0.1) return false;
 }
-
 else{
 //if (sieie >= 0.03) return false;
 //if (fabs(eInvMinusPInv) >= 0.014) return false;

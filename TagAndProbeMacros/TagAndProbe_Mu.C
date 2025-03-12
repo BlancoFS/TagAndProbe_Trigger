@@ -61,7 +61,8 @@ for(int i=0; i<systematicVar.size();i++)
    cout<<systematicVar.at(i).Data()<<endl;
    cout<<" ptTag : "<<ptTag<<" , zMassL : "<<zMassL<<" , zMassR : "<<zMassR<<endl;
    output = "";
-   output +="efficiency_Run2022BCD_";
+   //output +="efficiency_DY_Muon_Run2023BPix_";
+   output +="efficiency_Muon_Run2023BPix_";
    output += systematicVar.at(i);
    output +="_Mu.root";
 
@@ -208,19 +209,19 @@ for(int i=0; i<systematicVar.size();i++)
       //bool tag_TriggerMatch = passFilterIsoMu27->at(first);
       bool tag_TriggerMatch = passFilterIsoMu24->at(first);
       
-      cout << "Before filter" << endl;
-      cout << tag_MuId << endl;
-      cout << tag_MuKin << endl;
-      cout << tag_TriggerMatch << endl;
+      //cout << "Before filter" << endl;
+      //cout << tag_MuId << endl;
+      //cout << tag_MuKin << endl;
+      //cout << tag_TriggerMatch << endl;
       
       if(!(tag_MuId && tag_MuKin && tag_TriggerMatch))continue;
 
       bool probe_MuId = HWW_Muon_New_Def(second, mu_pt->at(second));
       bool probe_MuKin = fabs(mu_eta->at(second))<2.4;
 
-      cout << "Test ID" << endl;
-      cout << probe_MuId << endl;
-      cout << probe_MuKin << endl;
+      //cout << "Test ID" << endl;
+      //cout << probe_MuId << endl;
+      //cout << probe_MuKin << endl;
       
       if(!(probe_MuId && probe_MuKin)) continue;
 
@@ -231,7 +232,6 @@ for(int i=0; i<systematicVar.size();i++)
 
       if (Z_candLV.M()<zMassL || Z_candLV.M() >zMassR) continue;
 
-      cout << "pass selection" << endl;
       
       h_IsoMu24_pt_total->Fill(mu_pt->at(second));
       h_IsoMu24_eta_total->Fill(mu_eta->at(second));

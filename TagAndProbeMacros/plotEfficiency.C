@@ -67,51 +67,10 @@ while(!inRootFile.eof())
 		ofstream outfile(textFileName.Data());
 		if (doNominal){
 
-		  //TString file_pT_up = "efficiency_TagPt_up_Ele.root";
-		  //TString file_pT_down = "efficiency_TagPt_down_Ele.root";
-		  //TString file_Z_up = "efficiency_Zmass_up_Ele.root";
-		  //TString file_Z_down = "efficiency_Zmass_down_Ele.root";
-
-		  //TString file_pT_up = "efficiency_TagPt_up_Mu.root";
-                  //TString file_pT_down = "efficiency_TagPt_down_Mu.root";
-                  //TString file_Z_up = "efficiency_Zmass_up_Mu.root";
-                  //TString file_Z_down = "efficiency_Zmass_down_Mu.root";
-		  /**
-		  // MC Muon Run2022EE
-		  TString file_pT_up = "efficiency_DY_Run2022E_TagPt_up_Mu.root";
-                  TString file_pT_down = "efficiency_DY_Run2022E_TagPt_down_Mu.root";
-                  TString file_Z_up = "efficiency_DY_Run2022E_Zmass_up_Mu.root";
-		  TString file_Z_down = "efficiency_DY_Run2022E_Zmass_down_Mu.root";
-		  
-		  // MC Electron Run2022EE
-		  TString file_pT_up = "efficiency_DY_Run2022E_TagPt_up_Ele.root";
-                  TString file_pT_down = "efficiency_DY_Run2022E_TagPt_down_Ele.root";
-                  TString file_Z_up = "efficiency_DY_Run2022E_Zmass_up_Ele.root";
-                  TString file_Z_down = "efficiency_DY_Run2022E_Zmass_down_Ele.root";
-		  
-		  // Data Electron Run2022BCD
-		  TString file_pT_up = "efficiency_Run2022BCD_TagPt_up_Ele.root";
-                  TString file_pT_down = "efficiency_Run2022BCD_TagPt_down_Ele.root";
-                  TString file_Z_up = "efficiency_Run2022BCD_Zmass_up_Ele.root";
-                  TString file_Z_down = "efficiency_Run2022BCD_Zmass_down_Ele.root";
-		  
-		  TString file_pT_up = "efficiency_Run2022BCD_TagPt_up_Mu.root";
-                  TString file_pT_down = "efficiency_Run2022BCD_TagPt_down_Mu.root";
-                  TString file_Z_up = "efficiency_Run2022BCD_Zmass_up_Mu.root";
-                  TString file_Z_down = "efficiency_Run2022BCD_Zmass_down_Mu.root";
-		  
-		  // MC Electron Run2022BCD
-		  TString file_pT_up = "efficiency_DY_Run2022BCD_TagPt_up_Ele.root";
-                  TString file_pT_down = "efficiency_DY_Run2022BCD_TagPt_down_Ele.root";
-                  TString file_Z_up = "efficiency_DY_Run2022BCD_Zmass_up_Ele.root";
-                  TString file_Z_down = "efficiency_DY_Run2022BCD_Zmass_down_Ele.root";
-		  **/
-		  // MC Muon Run2022BCD
-                  TString file_pT_up = "efficiency_DY_Run2022BCD_TagPt_up_Mu.root";
-                  TString file_pT_down = "efficiency_DY_Run2022BCD_TagPt_down_Mu.root";
-                  TString file_Z_up = "efficiency_DY_Run2022BCD_Zmass_up_Mu.root";
-                  TString file_Z_down = "efficiency_DY_Run2022BCD_Zmass_down_Mu.root";
-		  
+		  TString file_pT_up = "efficiency_DY_Ele_Run2022_TagPt_up_Ele.root";
+		  TString file_pT_down = "efficiency_DY_Ele_Run2022_TagPt_down_Ele.root";
+		  TString file_Z_up = "efficiency_DY_Ele_Run2022_Zmass_up_Ele.root";
+		  TString file_Z_down = "efficiency_DY_Ele_Run2022_Zmass_down_Ele.root";
 		  
 		  TFile *f1_pT_up      = new TFile(file_pT_up.Data());
 		  TFile *f1_pT_down    = new TFile(file_pT_down.Data());

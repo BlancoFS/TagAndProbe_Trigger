@@ -81,6 +81,7 @@ public :
    vector<bool>    *passMVAIsoWP90;
    vector<bool>    *passMVAIsoWP80;
    vector<bool>    *hasMatchedToZ;
+   vector<bool>    *passFilterEle30;
    vector<bool>    *passFilterEle35;
    vector<bool>    *passEleIdMVA90Iso22V1;
    vector<bool>    *passL1EG10;
@@ -229,6 +230,7 @@ public :
    TBranch        *b_passL1EG20Iso;   //!
    TBranch        *b_triggerPath;   //!
    TBranch        *b_triggerDecision;   //!
+   TBranch        *b_passFilterEle30;   //!
    TBranch        *b_passFilterEle32;   //!
    TBranch        *b_passFilterEle35;   //! 
    TBranch        *b_passFilterEle23_12_leg1;   //!
@@ -427,6 +429,7 @@ void TagAndProbe::Init(TTree *tree)
    passL1EG20Iso = 0;
    triggerPath = 0;
    triggerDecision = 0;
+   passFilterEle30 = 0;
    passFilterEle32 = 0;
    passFilterEle35 = 0;
    passFilterEle23_12_leg1 = 0;
@@ -564,6 +567,7 @@ void TagAndProbe::Init(TTree *tree)
    fChain->SetBranchAddress("passL1EG20Iso", &passL1EG20Iso, &b_passL1EG20Iso);
    fChain->SetBranchAddress("triggerPath", &triggerPath, &b_triggerPath);
    fChain->SetBranchAddress("triggerDecision", &triggerDecision, &b_triggerDecision);
+   fChain->SetBranchAddress("passFilterEle30", &passFilterEle30, &b_passFilterEle30);
    fChain->SetBranchAddress("passFilterEle35", &passFilterEle35, &b_passFilterEle35);
    fChain->SetBranchAddress("passFilterEle23_12_leg1", &passFilterEle23_12_leg1, &b_passFilterEle23_12_leg1);
    fChain->SetBranchAddress("passFilterEle23_12_leg2", &passFilterEle23_12_leg2, &b_passFilterEle23_12_leg2);
