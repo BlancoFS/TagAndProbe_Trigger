@@ -10,11 +10,16 @@
 <use name="CommonTools/UtilAlgos"/>
 <use name="DataFormats/EgammaCandidates"/>
 <use name="RecoEgamma/EgammaTools"/>
+<use name="RecoEgamma/EgammaPhotonAlgos"/>
+<use name="CommonTools/Egamma"/>
 <use name="DataFormats/PatCandidates"/>
 <use name="DataFormats/Math"/>
 <use name="DataFormats/HLTReco"/>
 <use name="HLTrigger/HLTcore"/>
 <use name="DataFormats/L1Trigger"/>
+<export>
+  <lib name="1"/>
+</export>
 <flags CXXFLAGS="-g -Wno-sign-compare -Wno-unused-variable -Wno-unused-but-set-variable  -Os"/>
 
 <flags EDM_PLUGIN="1"/>

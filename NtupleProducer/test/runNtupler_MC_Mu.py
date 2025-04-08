@@ -12,7 +12,7 @@ process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 process.MessageLogger.cerr.FwkReport.reportEvery = 1
 
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run3_data_prompt','')
+process.GlobalTag = GlobalTag(process.GlobalTag, '150X_mcRun3_2024_realistic_v2','')
 
 #
 # Define input data to read
@@ -22,8 +22,7 @@ inputFilesAOD = cms.untracked.vstring(
     'root://cms-xrd-global.cern.ch//store/data/Run2017C/SingleElectron/AOD/12Sep2017-v1/70000/80EF56E5-69A6-E711-AB37-48FD8E2824D7.root',
 )    
 inputFilesMiniAOD = cms.untracked.vstring(
-    #"root://cms-xrd-global.cern.ch//store/data/Run2024F/Muon0/MINIAOD/MINIv6NANOv15-v1/110000/263908bf-cf24-4c9f-b093-acfd8c184c73.root"
-    "root://cms-xrd-global.cern.ch//store/data/Run2024F/EGamma1/MINIAOD/MINIv6NANOv15-v1/110000/05bcea69-4d67-4867-85f8-533627aca189.root"
+    "root://cms-xrd-global.cern.ch//store/mc/RunIII2024Summer24MiniAODv6/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/150X_mcRun3_2024_realistic_v1-v4/2540000/00c9ebe8-75bf-412b-86a4-9557dac72010.root"
 )
 
 #
@@ -160,9 +159,9 @@ process.ntupler = cms.EDAnalyzer('Ntupler',
 				 eleMVAValuesMapTokenNoIso = cms.InputTag('electronMVAValueMapProducer:ElectronMVAEstimatorRun2RunIIIWinter22NoIsoV1Values'),	
                                  muInputTag = cms.InputTag("gmtStage2Digis","Muon","RECO"),
                                  egInputTag = cms.InputTag("caloStage2Digis","EGamma","RECO"),
-                                 isMC = cms.bool(False),
-                                 doMuon = cms.bool(False),
-                                 doEle = cms.bool(True)
+                                 isMC = cms.bool(True),
+                                 doMuon = cms.bool(True),
+                                 doEle = cms.bool(False)
 )
 
 

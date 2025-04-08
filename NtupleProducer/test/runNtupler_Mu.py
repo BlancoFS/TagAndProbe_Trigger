@@ -161,8 +161,8 @@ process.ntupler = cms.EDAnalyzer('Ntupler',
                                  muInputTag = cms.InputTag("gmtStage2Digis","Muon","RECO"),
                                  egInputTag = cms.InputTag("caloStage2Digis","EGamma","RECO"),
                                  isMC = cms.bool(False),
-                                 doMuon = cms.bool(False),
-                                 doEle = cms.bool(True)
+                                 doMuon = cms.bool(True),
+                                 doEle = cms.bool(False)
 )
 
 
