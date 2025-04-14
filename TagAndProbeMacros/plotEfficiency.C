@@ -67,10 +67,10 @@ while(!inRootFile.eof())
 		ofstream outfile(textFileName.Data());
 		if (doNominal){
 
-		  TString file_pT_up = "efficiency_DY_Ele_Run2022_TagPt_up_Ele.root";
-		  TString file_pT_down = "efficiency_DY_Ele_Run2022_TagPt_down_Ele.root";
-		  TString file_Z_up = "efficiency_DY_Ele_Run2022_Zmass_up_Ele.root";
-		  TString file_Z_down = "efficiency_DY_Ele_Run2022_Zmass_down_Ele.root";
+		  TString file_pT_up = "efficiency_EGamma_Run2024_TagPt_up_Ele.root";
+		  TString file_pT_down = "efficiency_EGamma_Run2024_TagPt_down_Ele.root";
+		  TString file_Z_up = "efficiency_EGamma_Run2024_Zmass_up_Ele.root";
+		  TString file_Z_down = "efficiency_EGamma_Run2024_Zmass_down_Ele.root";
 		  
 		  TFile *f1_pT_up      = new TFile(file_pT_up.Data());
 		  TFile *f1_pT_down    = new TFile(file_pT_down.Data());

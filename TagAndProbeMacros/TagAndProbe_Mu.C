@@ -5,7 +5,7 @@
 #include <TCanvas.h>
 
 
-void TagAndProbe::Loop(TString output)
+void TagAndProbe::Loop(TString output_label="")
 {
 //   In a ROOT session, you can do:
 //      root> .L TagAndProbe.C
@@ -60,9 +60,9 @@ for(int i=0; i<systematicVar.size();i++)
 
    cout<<systematicVar.at(i).Data()<<endl;
    cout<<" ptTag : "<<ptTag<<" , zMassL : "<<zMassL<<" , zMassR : "<<zMassR<<endl;
-   output = "";
-   //output +="efficiency_DY_Muon_Run2023BPix_";
-   output +="efficiency_Muon_Run2023BPix_";
+   TString output = output_label;
+   //output +="efficiency_DY_Muon_Run2024_";
+   output +="efficiency_Muon_Run2024_";
    output += systematicVar.at(i);
    output +="_Mu.root";
 

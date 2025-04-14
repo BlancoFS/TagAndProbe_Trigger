@@ -30,7 +30,7 @@ dataset = {
    "Run2024E_EGamma1": "/EGamma1/Run2024E-2024CDEReprocessing-v1/MINIAOD",
    "Run2024F_EGamma0": "/EGamma0/Run2024F-PromptReco-v1/MINIAOD",
    "Run2024F_EGamma1": "/EGamma1/Run2024F-PromptReco-v1/MINIAOD",
-   "Run2024G_EGamma0": "/EGamma0/Run2024G-PromptReco-v1/MINIAOD"
+   "Run2024G_EGamma0": "/EGamma0/Run2024G-PromptReco-v1/MINIAOD",
    "Run2024G_EGamma1": "/EGamma1/Run2024G-PromptReco-v1/MINIAOD",
    "Run2024H_EGamma0": "/EGamma0/Run2024H-PromptReco-v1/MINIAOD",
    "Run2024H_EGamma1": "/EGamma1/Run2024H-PromptReco-v1/MINIAOD",

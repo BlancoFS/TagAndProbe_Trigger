@@ -1,4 +1,0 @@
-Mu12_pt
-Mu12_eta
-Mu23_pt
-Mu23_eta

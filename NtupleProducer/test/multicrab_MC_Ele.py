@@ -30,7 +30,7 @@ if __name__ == '__main__':
    config.JobType.outputFiles = ['TnP_ntuple.root']
 
    config.Data.inputDBS = 'global'
-   config.Data.splitting = 'FileBased'
+   config.Data.splitting = 'Automatic'
    #config.Data.splitting = 'LumiBased'
    config.Data.publication = False
    config.Data.totalUnits = -1
@@ -42,9 +42,9 @@ if __name__ == '__main__':
    for sample in listOfSamples:
 
       config.General.requestName = sample
-      config.Data.splitting = 'FileBased'
+      config.Data.splitting = 'Automatic'
       config.Data.inputDataset = dataset[sample]
-      config.Data.unitsPerJob = 1
+      #config.Data.unitsPerJob = 2
       config.Data.outputDatasetTag = sample
       p = Process(target=submit, args=(config,))
       p.start()

@@ -5,7 +5,7 @@
 
 //  g++ Run_TnP.cxx -o tnp  `root-config --libs --cflags`    to compile the code
 
-void RunLoop(TString file, TString output)
+void RunLoop(TString file, TString output, int idx=-1)
 //void RunLoop(void)
 {
 
@@ -17,10 +17,18 @@ void RunLoop(TString file, TString output)
 
   // Read the input list of files and add them to the chain
   TString currentFile;
-  Int_t counter=0;
+  int counter=-1;
+
+  cout << idx << endl;
+  cout << output << endl;
+
   while(in.good()) {
     in >> currentFile;
+    counter++;
     if (!currentFile.Contains("root")) continue; // protection
+    if (idx>=0 && idx!=counter) continue;
+    cout << "" << endl;
+    cout << currentFile.Data() << endl;
     chain->Add(currentFile.Data());
   }
   in.close();
@@ -42,8 +50,12 @@ int main(int argc, char ** argv)
     }
   TString file = argv[1];
   TString output = argv[2];
+  int index = -1;
+  if (argc > 3) {
+    index = stoi(argv[3]);
+  }
 
-  RunLoop(file,output); // just call the "ROOT Script"
+  RunLoop(file,output, index); // just call the "ROOT Script"
 //  RunLoop(); // just call the "ROOT Script"
   return 0;
 }

@@ -4,7 +4,7 @@
 #include <TStyle.h>
 #include <TCanvas.h>
 
-void TagAndProbe::Loop(TString output)
+void TagAndProbe::Loop(TString output_label)
 {
    if (fChain == 0) return;
   bool RunSystematic=true;
@@ -35,16 +35,16 @@ for(int i=0; i<systematicVar.size();i++)
  
    cout<<systematicVar.at(i).Data()<<endl;
    cout<<" ptTag : "<<ptTag<<" , zMassL : "<<zMassL<<" , zMassR : "<<zMassR<<endl;
-   output = "";
-   output +="efficiency_EGamma_Run2023BPix_";
-   //output +="efficiency_DY_Ele_Run2023BPix_";
+   TString output = output_label;
+   output +="efficiency_EGamma_Run2024_";
+   //output +="efficiency_DY_Ele_Run2024_";
    output += systematicVar.at(i);
    output +="_Ele.root";
 
    TFile *file = new TFile(output.Data(),"RECREATE");
    Long64_t nentries = fChain->GetEntriesFast();
    double eta_bins[19] = {-2.5,-2.4,-2.3,-2.2,-2.1,-1.566,-1.4442,-0.8,-0.4,0,0.4,0.8,1.4442,1.566,2.1,2.2,2.3,2.4,2.5};
-   double pt_bins_Ele30[17] = {5. ,  15. ,  25. ,  28. ,  29.5,  30.5,  31.5,  32.5,  33.5, 34.5,  36. ,  39.0,  42.5,  47.5,  55. ,  80. , 150. };
+   double pt_bins_Ele30[18] = {5. ,  15. ,  25. ,  28. ,  29.5,  30.5,  31.5,  32.5,  33.5, 34.5,  36. ,  39.0,  42.5,  47.5,  55. ,  80. , 150. , 500.};
    //double pt_bins_Ele35[16] = {5. ,  15. ,  25. ,  31. ,  32.5,  33.5,  34.5,  35.5,  36.5, 37.5,  39. ,  42.5,  47.5,  55. ,  80. , 150. };
    double pt_bins_Ele23_Ele12_leg1[14] = {0,20,23,24,25,26,30,35,40,45,50,60,100,200};
    double pt_bins_Ele23_Ele12_leg2[16] = {0,10,12,13,14,15,20,25,30,35,40,45,50,60,100,200};
@@ -54,12 +54,12 @@ for(int i=0; i<systematicVar.size();i++)
 
 // HLT Ele30
 
-   TH1F *h_Ele30_pt_total = new TH1F("Ele30_pt_total","Ele30_pt",15,pt_bins_Ele30);
+   TH1F *h_Ele30_pt_total = new TH1F("Ele30_pt_total","Ele30_pt",17,pt_bins_Ele30);
    TH1F *h_Ele30_eta_total = new TH1F("Ele30_eta_total","Ele30_eta",18,eta_bins);
-   TH2F *h_Ele30_pt_eta_total = new TH2F("Ele30_pt_eta_total","Ele30_pt_eta",18,eta_bins,15,pt_bins_Ele30);
-   TH1F *h_Ele30_pt_pass = new TH1F("Ele30_pt_pass","Ele30_pt",15,pt_bins_Ele30);
+   TH2F *h_Ele30_pt_eta_total = new TH2F("Ele30_pt_eta_total","Ele30_pt_eta",18,eta_bins,17,pt_bins_Ele30);
+   TH1F *h_Ele30_pt_pass = new TH1F("Ele30_pt_pass","Ele30_pt",17,pt_bins_Ele30);
    TH1F *h_Ele30_eta_pass = new TH1F("Ele30_eta_pass","Ele30_eta",18,eta_bins);
-   TH2F *h_Ele30_pt_eta_pass = new TH2F("Ele30_pt_eta_pass","Ele30_pt_eta",18,eta_bins,15,pt_bins_Ele30);
+   TH2F *h_Ele30_pt_eta_pass = new TH2F("Ele30_pt_eta_pass","Ele30_pt_eta",18,eta_bins,17,pt_bins_Ele30);
 
    h_Ele30_pt_total->Sumw2();
    h_Ele30_eta_total->Sumw2();
